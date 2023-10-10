@@ -4,14 +4,15 @@ import com.github.laziestcoder.statemachinejavapoc.entity.PaymentEntity;
 import com.github.laziestcoder.statemachinejavapoc.enums.PaymentEvent;
 import com.github.laziestcoder.statemachinejavapoc.enums.PaymentState;
 import com.github.laziestcoder.statemachinejavapoc.repository.PaymentRepository;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.statemachine.StateMachine;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @SpringBootTest
 class PaymentServiceImplTest {
@@ -32,6 +33,7 @@ class PaymentServiceImplTest {
     @Transactional
     @Test
     void preAuth() {
+        payment.setId(UUID.randomUUID());
         PaymentEntity savedPayment = paymentService.newPayment(payment);
         StateMachine<PaymentState, PaymentEvent> sm = paymentService.preAuth(savedPayment.getId());
         PaymentEntity preAuthPayment = paymentRepository.findById(savedPayment.getId()).orElse(new PaymentEntity());

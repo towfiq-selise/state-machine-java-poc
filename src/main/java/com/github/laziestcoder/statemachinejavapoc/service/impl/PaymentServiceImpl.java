@@ -6,9 +6,9 @@ import com.github.laziestcoder.statemachinejavapoc.enums.PaymentEvent;
 import com.github.laziestcoder.statemachinejavapoc.enums.PaymentState;
 import com.github.laziestcoder.statemachinejavapoc.repository.PaymentRepository;
 import com.github.laziestcoder.statemachinejavapoc.service.PaymentService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateMachine;
@@ -16,6 +16,7 @@ import org.springframework.statemachine.config.StateMachineFactory;
 import org.springframework.statemachine.support.DefaultStateMachineContext;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.UUID;
 
